@@ -10,9 +10,9 @@ class Solution {
                 if ((mask & (1 << i)) == 1) {
                     continue;
                 }
-                int newMask = mask | (1 << i);
+                int newMask = mask | 1 << i;
                 if (tasks[i] + dp[mask].used <= sessionTime) {
-                    dp[newMask] = minPair(dp[newMask], new Pair(dp[mask].session, tasks[i] + dp[mask].used));
+                    dp[newMask] = minPair(dp[newMask], new Pair(dp[mask].session, dp[mask].used + tasks[i]));
                 } else {
                     dp[newMask] = minPair(dp[newMask], new Pair(dp[mask].session + 1, tasks[i]));
                 }
@@ -24,16 +24,17 @@ class Solution {
     public Pair minPair(Pair a, Pair b) {
         if (a.session > b.session) return b;
         if (a.session < b.session) return a;
-        if (a.used < b.used) return a;
-        return b;
+        if (a.used > b.used) return b;
+        return a;
     }
+}
 
-    class Pair {
-        int session;
-        int used;
-        public Pair(int session, int used) {
-            this.session = session;
-            this.used = used;
-        }
+class Pair {
+    int session;
+    int used;
+
+    public Pair(int session, int used) {
+        this.session = session;
+        this.used = used;
     }
 }
