@@ -11,7 +11,7 @@ class Solution {
                 if (map.get(need) == i + 1) {
                     continue;
                 }
-                return new int[] {map.get(numbers[i]), map.get(need)};
+                return new int[] {i + 1, map.get(need)};
             }
         }
         return new int[] {};
