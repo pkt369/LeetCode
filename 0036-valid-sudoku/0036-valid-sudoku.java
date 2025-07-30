@@ -21,7 +21,6 @@ class Solution {
                     return false;
                 }
                 if (squares.get(((i / 3) * 3) + (j / 3)).contains(num)) {
-                    System.out.println("squares: " + num);
                     return false;
                 }
                 rows.get(i).add(num);
