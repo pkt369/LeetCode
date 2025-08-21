@@ -8,6 +8,13 @@ class Solution {
             if (nums[mid] == target) {
                 return mid;
             }
+            if (nums[left] == target) {
+                return left;
+            }
+            if (nums[right] == target) {
+                return right;
+            }
+
             if (nums[left] <= nums[mid]) {
                 if (nums[left] <= target && target < nums[mid]) {
                     right = mid - 1;
