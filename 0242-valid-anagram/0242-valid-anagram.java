@@ -3,19 +3,16 @@ class Solution {
         if (s.length() != t.length()) {
             return false;
         }
-        Map<Character, Integer> map = new HashMap<>();
+        int[] count = new int[26];
         for (int i = 0; i < s.length(); i++) {
-            char c1 = s.charAt(i);
-            char c2 = t.charAt(i);
-            map.put(c1, map.getOrDefault(c1, 0) + 1);
-            map.put(c2, map.getOrDefault(c2, 0) - 1);
-            if (map.get(c1) == 0) {
-                map.remove(c1);
-            }
-            if (map.containsKey(c2) && map.get(c2) == 0) {
-                map.remove(c2);
+            count[s.charAt(i) - 'a']++;
+            count[t.charAt(i) - 'a']--;
+        }
+        for (int i = 0; i < 26; i++) {
+            if (count[i] != 0) {
+                return false;
             }
         }
-        return map.size() == 0;
+        return true;
     }
 }
