@@ -1,4 +1,3 @@
-// 시간 복잡도: N
 class Solution {
     public boolean isAnagram(String s, String t) {
         if (s.length() != t.length()) {
@@ -6,19 +5,17 @@ class Solution {
         }
         Map<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
-            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
-        }
-
-        for (int i = 0; i < t.length(); i++) {
-            if (!map.containsKey(t.charAt(i))) {
-                return false;
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
+            map.put(c1, map.getOrDefault(c1, 0) + 1);
+            map.put(c2, map.getOrDefault(c2, 0) - 1);
+            if (map.get(c1) == 0) {
+                map.remove(c1);
             }
-            map.put(t.charAt(i), map.get(t.charAt(i)) - 1);
-            if (map.get(t.charAt(i)) == 0) {
-                map.remove(t.charAt(i));
+            if (map.containsKey(c2) && map.get(c2) == 0) {
+                map.remove(c2);
             }
         }
-
         return map.size() == 0;
     }
 }
