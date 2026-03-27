@@ -3,31 +3,29 @@ class Solution {
         List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(nums);
 
-        for (int i = 0; i < nums.length; i++) {
-            if (i != 0 && nums[i] == nums[i - 1]) {
-                continue;
-            }
-
+        for (int i = 0; i < nums.length - 2; i++) {
             int left = i + 1, right = nums.length - 1;
             while (left < right) {
-                while (left < right && left != i + 1 && nums[left - 1] == nums[left]) left++;
-                while (left < right && right != nums.length - 1 && nums[right + 1] == nums[right]) right--;
-
-                if (left >= right) {
-                    break;
-                }
-                int sum = nums[i] + nums[left] + nums[right];
-                if (sum == 0) {
-                    ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                if (nums[left] + nums[right] + nums[i] == 0) {
+                    ans.add(List.of(nums[left], nums[right], nums[i]));
+                    while (left + 1 < right && nums[left] == nums[left + 1]) {
+                        left++;
+                    }
+                    while (left < right - 1 && nums[right] == nums[right - 1]) {
+                        right--;
+                    }
                     left++;
                     right--;
                     continue;
                 }
-                if (sum > 0) {
+                if (nums[left] + nums[right] + nums[i] < 0) {
+                    left++;
+                } else {
                     right--;
-                    continue;
                 }
-                left++;
+            }
+            while (i + 1 < nums.length && nums[i] == nums[i + 1]) {
+                i++;
             }
         }
         return ans;
